@@ -38,7 +38,6 @@ function Afficher(number){
 function Operation(operationParam){
     if(calculatrice.operation == undefined){
         calculatrice.operation = operationParam;
-        calculatrice.x = parseFloat(xString);
         Afficher();
     }else{
         alert("Vous avez déjà choisi l'opération " + calculatrice.operation);
