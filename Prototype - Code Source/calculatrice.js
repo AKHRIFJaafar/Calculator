@@ -31,8 +31,6 @@ function Afficher(number){
             afficheur.value += yString 
 
         }
- 
-   
 }
 
 function Operation(operationParam){

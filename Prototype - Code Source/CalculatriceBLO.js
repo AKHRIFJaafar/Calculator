@@ -1,12 +1,13 @@
 // Métier
 class CalculatriceBLO {
-
-    constructor(x,y,solution,operation){
-        this.x = x;
-        this.y = y;
-        this.solution = solution;
-        this.operation = operation;  
+    constructor(x,y,operation,solution){
+        this.x = x ;
+        this.y = y ;
+        this.operation = operation ;
+        this.solution = solution ;
     }
+
+
 
     Calculer(){
         this.solution = undefined;
@@ -17,11 +18,8 @@ class CalculatriceBLO {
             case '-':
                 this.solution = this.x - this.y;
                     break;
-             case 'x':
+            case 'x':
                 this.solution = this.x * this.y;
-                    break;
-            case '/':
-                this.solution = this.x / this.y;
                     break;
             default:
                 break;
