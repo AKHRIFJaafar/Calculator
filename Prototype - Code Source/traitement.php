@@ -10,10 +10,11 @@ if (isset($_POST['submit'])){
     $x = $_POST['x'] ;
     $y = $_POST['y'] ;
     $operation = $_POST['operation'] ;
+    $resultat = "";
 
     switch ($operation) {
         case 'None':
-             echo "Attention! Vous n'avez pas choisir l'operation!!";
+           echo "Attention! Vous n'avez pas choisir l'operation!!";
             break;
         case 'Somme':
             $resultat = $x + $y;
@@ -30,8 +31,9 @@ if (isset($_POST['submit'])){
         default:
             break;
     }
-    echo 'Le Resultat est :' .$resultat;
+       echo $resultat;
 }
+
 
 
 ?>
