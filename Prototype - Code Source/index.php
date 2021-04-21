@@ -1,41 +1,94 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <title>Calculatrice</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<?php
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="/js/custom.js"></script>
-  </head>
+class Calculatrice{
+    private $x;
+    private $y;
+    private $operation;
+
+    function __construct($x,$y,$operation) {
+        $this->x = $x;
+        $this->y = $y;
+        $this->operation = $operation;
+    }
+ 
+    function Calculer(){
+        $solution = null;
+        switch($this->operation){
+            case "+" : 
+            $solution = $this->x + $this->y;
+                break;
+            case "-" : 
+            $solution = $this->x - $this->y;
+                break;
+        }
+        return $solution;
+    } 
+
+}
+    // Initialisation des variables
+    $x = null;
+    $y = null;
+    $operation = null;
+    $afficheur = "";
+    $solution = null;
+
+    // Traitement
+
+    // Récupération des variables de la page
+    if(isset($_POST['x'])) $x = $_POST['x'];
+    if(isset($_POST['y']))$y = $_POST['y'];
+    if(isset($_POST['operation'])) $operation = $_POST['operation'];
+
+    // Ajouter la valeur du nombre au X ou Y
+    if(isset($_POST['nombre'])){
+        $nombre = $_POST['nombre'];
+        if($operation == null){
+            if($x == null) $x = $nombre;
+            else $x = floatval($x . $nombre);
+        }else{
+            if($y == null) $y = $nombre;
+            else $y = floatval($y . $nombre);
+        }
+    }
+
+    if(isset($_POST['egale'])){
+        $egale = $_POST['egale'];
+    
+        // Calcule
+        $calculatrice = new Calculatrice($x,$y,$operation);
+        $solution = $calculatrice->calculer($x,$y,$operation);
+      
+    }
+    // Affichage 
+    if($solution != null) $afficheur = $solution;
+    else{
+        if($x != null) $afficheur = $afficheur . "$x" ;
+        if($operation != null) $afficheur .= " " .  $operation . " ";
+        if($y != null) $afficheur .= $y;
+    }
+     
+?>
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype calculatrice</title>
+</head>
 <body>
-<form action="traitement.php" method="POST" >
-<input type="number" name="x" placeholder="Enter number">
-<br><br>
-<input type="number" name="y" placeholder="Enter number">
-<br><br>
-<select name="operation">
-<option value="None"> None </option>
-<option value="Somme"> Somme </option>
-<option value="Soustraction"> Soustraction </option>
-<option value="Division"> Division </option>
-<option value="Produit"> Produit </option>
-</select>
-
-<input type="submit" name="submit" value="Calculer">
-
+<form action="" method="post">
+    <input type="hidden" name="x" value="<?php echo $x ?>">
+    <input type="hidden" name="y" value="<?php echo $y ?>">
+    <input type="hidden" name="operation" value="<?php echo $operation ?>">
+    <input type="text" id="afficheur" name="afficheur" value="<?php echo $afficheur ?>" />
+    <input type="submit" name="nombre" value="1" ></input>
+    <input type="submit" name="nombre" value="2"  ></input>
+    <input type="submit" name="nombre" value="3"  ></input>
+    <input type="submit" name="operation" value="+"  ></input>
+    <input type="submit" name="operation" value="-"  ></input>
+    <input type="submit" name="egale" value="="  ></input>
 </form>
-   
-
-
-
-  
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-  </body>
+    
+</body>
 </html>
